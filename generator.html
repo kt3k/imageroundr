@@ -1,0 +1,169 @@
+<body onload="main();">
+<style>
+div, body {
+    padding: 0px;
+    margin: 0px;
+}
+
+#main {
+    text-align: center;
+}
+
+</style>
+<script>
+var canvas, ctx, timer;
+
+var dice = function (n) {
+    return Math.floor(Math.random() * n);
+};
+
+var main = function () {
+    /*
+    canvas = document.querySelector('#canvas');
+    ctx = canvas.getContext('2d');
+    canvas.addEventListener('click', exportCanvas ,false);
+    ctx.fillStyle = 'rgba(255,0,0,0.5)';
+    ctx.fillRect(0,0,300,150);*/
+
+    document.body.addEventListener('dragenter', function (e) {
+        console.log('dragenter')
+        document.body.style.backgroundColor = 'orange';
+        e.preventDefault();
+        e.stopPropagation();
+    }, false);
+
+    document.body.addEventListener('dragover', function (e) {
+        console.log('dragover')
+        e.preventDefault();
+        e.stopPropagation();
+        e.dataTransfer.dropEffect = 'copy';
+
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+            document.body.style.backgroundColor = '';            
+        }, 100);
+    }, false);
+
+    document.body.addEventListener('drop', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.files = e.dataTransfer.files;
+
+        var file = window.files[0];
+
+        readImage(file, function (img) {
+            var canvas = createCanvasBasedOnImg(img);
+
+            var head = document.getElementById('head');
+            var button = createButton('download');
+
+            insertNext(head, document.createElement('br'));
+            insertNext(head, canvas);
+            insertNext(head, document.createElement('br'));
+            insertNext(head, button);
+            insertNext(head, document.createElement('hr'));
+
+            canvas.addEventListener('click', function () {
+                var radius = prompt();
+                if (radius) {
+                    pasteImg(canvas, img);
+                    roundCanvas(canvas, radius);
+                    button.href = downloadablePng(canvas);
+                }
+            }, false)
+
+        });
+
+    }, false);
+};
+
+var createButton = function (label) {
+    var button = document.createElement('a');
+    button.textContent = label;
+    button.setAttribute('download', 'rounded.png');
+
+    return button;
+};
+
+var createCanvasBasedOnImg = function (img) {
+    var canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    pasteImg(canvas, img);
+
+    return canvas;
+};
+
+var pasteImg = function (canvas, img) {
+    canvas.getContext('2d').globalCompositeOperation = 'copy';
+    canvas.getContext('2d').drawImage(img, 0, 0);    
+};
+
+var insertNext = function (refElem, elem) {
+    refElem.parentElement.insertBefore(elem, refElem.nextSibling);
+};
+
+var readImage = function (file, callback) {
+    var reader = new FileReader()
+
+    reader.addEventListener('loadend', function (e) {
+        if (e.target.readyState == FileReader.DONE) {
+            var img = new Image();
+            img.src = e.target.result;
+            img.onload = function () {
+                callback(img);
+            };
+        }
+    }, false);
+
+    reader.readAsDataURL(file);
+};
+
+var downloadablePng = function (canvas) {
+    return canvas.toDataURL("image/png").replace("image/png", "image/octet-stream")
+};
+
+var downloadAsPng = function (canvas) {
+    window.location.href = downloadablePng(canvas);
+};
+
+var roundCanvas = function (canvas, radius) {
+    radius = radius;
+    cutRoundedRect(canvas.getContext('2d'), radius, 0, 0, canvas.width, canvas.height);
+};
+
+var cutRoundedRect = function(ctx, radius, x, y, w, h) {
+    var left = x;
+    var top = y;
+    var right = x + w;
+    var bottom = y + h;
+
+    ctx.globalCompositeOperation = 'destination-in';
+    ctx.fillStyle = 'black';
+
+    ctx.beginPath();
+    ctx.moveTo(left + radius, top);
+    ctx.lineTo(right - radius, top);
+    ctx.quadraticCurveTo(right, top, right, top + radius);
+    ctx.lineTo(right, bottom - radius);
+    ctx.quadraticCurveTo(right, bottom, right - radius, bottom);
+    ctx.lineTo(left + radius, bottom);
+    ctx.quadraticCurveTo(left, bottom, left, bottom - radius);
+    ctx.lineTo(left, top + radius);
+    ctx.quadraticCurveTo(left, top, left + radius, top);
+    ctx.fill();
+};
+
+var exportCanvas = function () {
+    var data = canvas.toDataURL('image/png');
+    var img = new Image();
+    img.src = data;
+    document.body.insertBefore(img, canvas.nextSibling);
+    document.body.insertBefore(document.createElement('hr'), canvas.nextSibling);
+};
+</script>
+<div id="main">
+<h1 id="head" height="">roundr</h1>
+<br />
+<div>
+</body>
