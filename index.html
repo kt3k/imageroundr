@@ -173,13 +173,6 @@ var cutRoundedRect = function(ctx, radius, x, y, w, h) {
     ctx.fill();
 };
 
-var exportCanvas = function () {
-    var data = canvas.toDataURL('image/png');
-    var img = new Image();
-    img.src = data;
-    document.body.insertBefore(img, canvas.nextSibling);
-    document.body.insertBefore(document.createElement('hr'), canvas.nextSibling);
-};
 </script>
 <div id="main">
   <h1 class="courier">image roundr</h1>
