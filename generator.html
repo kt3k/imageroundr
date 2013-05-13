@@ -1,12 +1,37 @@
+<html>
+<title>image roundr</title>
 <body onload="main();">
 <style>
 div, body {
-    padding: 0px;
-    margin: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 
 #main {
-    text-align: center;
+  text-align: center;
+}
+
+.times {
+  font-family: 'Times';
+}
+
+.courier {
+  font-family: 'courier';
+}
+
+h1 {
+  padding-top: 15px;
+}
+
+.description {
+}
+
+.x-small {
+  font-size: x-small;
+}
+
+.small {
+  font-size: small;
 }
 
 </style>
@@ -18,12 +43,6 @@ var dice = function (n) {
 };
 
 var main = function () {
-    /*
-    canvas = document.querySelector('#canvas');
-    ctx = canvas.getContext('2d');
-    canvas.addEventListener('click', exportCanvas ,false);
-    ctx.fillStyle = 'rgba(255,0,0,0.5)';
-    ctx.fillRect(0,0,300,150);*/
 
     document.body.addEventListener('dragenter', function (e) {
         console.log('dragenter')
@@ -58,9 +77,9 @@ var main = function () {
             var button = createButton('download');
 
             insertNext(head, document.createElement('br'));
-            insertNext(head, canvas);
-            insertNext(head, document.createElement('br'));
             insertNext(head, button);
+            insertNext(head, document.createElement('br'));
+            insertNext(head, canvas);
             insertNext(head, document.createElement('hr'));
 
             canvas.addEventListener('click', function () {
@@ -163,7 +182,12 @@ var exportCanvas = function () {
 };
 </script>
 <div id="main">
-<h1 id="head" height="">image roundr</h1>
-<br />
-<div>
+  <h1 class="courier">image roundr</h1>
+  <hr />
+  <p class="description courier">Drag and drop images on this page and you can round the corners of the pictures.</p>
+  <a id="head" /></a>
+  <hr />
+  <p class="small courier">Copyright (C) 2013 imageroundr.com All Rights Reserved.</p>
+</div>
 </body>
+</html>
