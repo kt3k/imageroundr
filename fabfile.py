@@ -8,7 +8,7 @@ env.shell = '/bin/sh -c'
 
 env.hosts = ['sakura']
 
-def deploy():
+def sakura():
 
   print(green('Deploying...'))
 
