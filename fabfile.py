@@ -16,5 +16,3 @@ def sakura():
     run('git pull')
 
   print(green('Done.'))
-
-  local('rm fabfile.pyc')
