@@ -16,3 +16,18 @@ def sakura():
     run('git pull')
 
   print(green('Done.'))
+
+  log('sakura')
+
+import time
+import datetime
+
+def log(task='none'):
+  log = (
+    "task:%s\t"
+    "host:%s\t"
+    "user:%s\t"
+    "time:%s\t"
+  ) % (task, env.hosts, env.user, datetime.datetime.utcnow())
+
+  open('.fablog', 'a').write(log.strip() + '\n')
