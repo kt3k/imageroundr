@@ -28,6 +28,6 @@ def log(task='none'):
     "host:%s\t"
     "user:%s\t"
     "time:%s\t"
-  ) % (task, env.hosts, env.user, datetime.datetime.utcnow())
+  ) % (task, env.hosts, env.user, str(datetime.datetime.utcnow()) + '+00:00')
 
   open('.fablog', 'a').write(log.strip() + '\n')
