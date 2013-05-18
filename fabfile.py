@@ -14,7 +14,8 @@ def sakura():
 
   with cd('www/imageroundr'):
     run('git pull')
-    run('git submodule --init update')
+    run('git submodule init')
+    run('git submodule update')
 
   print(green('Done.'))
 
