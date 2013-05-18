@@ -48,14 +48,12 @@ var main = function () {
     document.body.style.webkitTransitionDuration = '500ms';
 
     document.body.addEventListener('dragenter', function (e) {
-        console.log('dragenter')
         document.body.style.backgroundColor = 'orange';
         e.preventDefault();
         e.stopPropagation();
     }, false);
 
     document.body.addEventListener('dragover', function (e) {
-        console.log('dragover')
         e.preventDefault();
         e.stopPropagation();
         e.dataTransfer.dropEffect = 'copy';
