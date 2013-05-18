@@ -45,6 +45,8 @@ var dice = function (n) {
 
 var main = function () {
 
+    document.body.style.webkitTransitionDuration = '500ms';
+
     document.body.addEventListener('dragenter', function (e) {
         console.log('dragenter')
         document.body.style.backgroundColor = 'orange';
@@ -60,7 +62,8 @@ var main = function () {
 
         clearTimeout(timer);
         timer = setTimeout(function () {
-            document.body.style.backgroundColor = '';            
+            document.body.style.backgroundColor = '';
+            document.body.style.backgroundColor = '';
         }, 100);
     }, false);
 
@@ -72,7 +75,7 @@ var main = function () {
         var file = window.files[0];
 
         readImage(file, function (img) {
-            var canvas = createCanvasBasedOnImg(img);
+            var canvas = libcanvas.createCanvasBasedOnImg(img);
 
             var head = document.getElementById('head');
             var button = createButton('download');
@@ -86,9 +89,9 @@ var main = function () {
             canvas.addEventListener('click', function () {
                 var radius = prompt();
                 if (radius) {
-                    pasteImg(canvas, img);
-                    roundCanvas(canvas, radius);
-                    button.href = downloadablePng(canvas);
+                    libcanvas.pasteImg(canvas, img);
+                    libcanvas.roundCanvas(canvas, radius);
+                    button.href = libcanvas.downloadablePng(canvas);
                 }
             }, false)
 
@@ -103,15 +106,6 @@ var createButton = function (label) {
     button.setAttribute('download', 'rounded.png');
 
     return button;
-};
-
-var createCanvasBasedOnImg = function (img) {
-    var canvas = document.createElement('canvas');
-    canvas.width = img.width;
-    canvas.height = img.height;
-    pasteImg(canvas, img);
-
-    return canvas;
 };
 
 var insertNext = function (refElem, elem) {
