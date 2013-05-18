@@ -28,6 +28,9 @@ def log(task='none'):
     "host:%s\t"
     "user:%s\t"
     "time:%s\t"
-  ) % (task, env.hosts, env.user, str(datetime.datetime.utcnow()) + '+00:00')
+  ) % (task, env.hosts, env.user, str(datetime.datetime.utcnow().isoformat()) + '+00:00')
 
   open('.fablog', 'a').write(log.strip() + '\n')
+
+def push():
+  local('git push hub HEAD')
