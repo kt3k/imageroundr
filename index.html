@@ -43,12 +43,26 @@ var dice = function (n) {
     return Math.floor(Math.random() * n);
 };
 
+var pageEffect = {
+    on: function () {
+        document.body.style.backgroundColor = 'orange';
+        document.body.parentElement.style.backgroundColor = 'orange';
+    },
+
+    off: function () {
+        document.body.style.backgroundColor = 'white';
+        document.body.parentElement.style.backgroundColor = 'white';
+    },
+};
+
 var main = function () {
 
     document.body.style.webkitTransitionDuration = '500ms';
 
+    pageEffect.off();
+
     document.body.addEventListener('dragenter', function (e) {
-        document.body.style.backgroundColor = 'orange';
+        pageEffect.on();
         e.preventDefault();
         e.stopPropagation();
     }, false);
@@ -60,8 +74,7 @@ var main = function () {
 
         clearTimeout(timer);
         timer = setTimeout(function () {
-            document.body.style.backgroundColor = '';
-            document.body.style.backgroundColor = '';
+            pageEffect.off();
         }, 100);
     }, false);
 
